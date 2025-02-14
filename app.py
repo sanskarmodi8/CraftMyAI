@@ -8,7 +8,7 @@ st.markdown(
     """
     <style>
         .main {
-            text-align: center;
+            text-align: left;
         }
         .block-container {
             max-width: 800px;
@@ -21,7 +21,7 @@ st.markdown(
 
 # Sidebar Navigation
 st.sidebar.title("CraftMyAI")
-page = st.sidebar.radio("", ["🏠 Home", "📩 Request AI Solution", "ℹ️ About Us"])
+page = st.sidebar.radio("", ["🏠 Home", "📩 Request AI Solution", "📝 Feedback", "ℹ️ About Us"])
 
 # Home Page
 if page == "🏠 Home":
@@ -39,6 +39,7 @@ if page == "🏠 Home":
         🔥 **Let's bring your AI vision to life!**
         """
     )
+    st.write("")
     st.write("")
     st.image(
         "https://images.pexels.com/photos/6153068/pexels-photo-6153068.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -72,3 +73,34 @@ elif page == "ℹ️ About Us":
         - 🌍 **Vision:** Making AI accessible to businesses of all sizes.
         """
     )
+
+
+# Feedback Page
+elif page == "📝 Feedback":
+    st.title("📝 CraftMyAi Feedback Form")
+    st.write("We value your feedback! Help us improve by sharing your thoughts.")
+    
+    # Feedback Form
+    name = st.text_input("Your Name", "")
+    email = st.text_input("Your Email", "")
+    rating = st.slider("Rate your experience (1-5)", 1, 5, 3)
+    feedback = st.text_area("Your Feedback", "")
+    
+    if st.button("Submit Feedback"):
+        if name and email and feedback:
+            # Simulate saving feedback (Can be connected to a database later)
+            feedback_data = {
+                "Name": name,
+                "Email": email,
+                "Rating": rating,
+                "Feedback": feedback
+            }
+            df = pd.DataFrame([feedback_data])
+            df.to_csv("feedback.csv", mode='a', header=False, index=False)
+            
+            st.success("✅ Thank you for your feedback! We appreciate your input.")
+        else:
+            st.error("⚠️ Please fill out all fields before submitting.")
+    
+    st.write("---")
+    st.write("📧 Contact us at support@craftmyai.com")
